@@ -26,10 +26,10 @@ public class ObstacleBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.tag == "Limit")
-        //{
-        //    transform.Rotate(0, 180, 0);
-        //}
+        if (collision.gameObject.tag == "Limit")
+        {
+            Destroy(gameObject);
+        }
 
         //if (collision.gameObject.tag == "Player")
         //{
