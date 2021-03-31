@@ -1,0 +1,3 @@
+Resources
+Water Shader : Roystan (https://roystan.net/articles/toon-water.html)
+Skybox texture : BOXOPHOBIC (https://assetstore.unity.com/packages/vfx/shaders/free-skybox-extended-shader-107400)
