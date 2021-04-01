@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         currentSection = landingSection;
+        currentSection.Equip();
     }
 
     void Update()
@@ -36,6 +37,8 @@ public class MainMenu : MonoBehaviour
         if (Input.GetKey(actionKey))
         {
             currentHoldTime += Time.deltaTime;
+            currentSection.Hold(Mathf.Clamp(currentHoldTime / holdTime * 100, 0, 100));
+
             if(currentHoldTime >= holdTime)
             {
                 currentSection.Validate();
@@ -49,6 +52,8 @@ public class MainMenu : MonoBehaviour
             if (!hadValidateAButton)
             {
                 if (currentSection.buttons.Count > 0) NextButton();
+            }else {
+                currentSection.Hold(0);
             }
             hadValidateAButton = false;
             currentHoldTime = 0;

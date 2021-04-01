@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MenuButton : MonoBehaviour
 {
     public virtual void Landing()
     {
-        GetComponentInChildren<TMP_Text>().color = new Color32(67, 188, 205, 255);
+        GetComponent<Animator>().SetBool("isActive", true);
+        transform.GetChild(transform.childCount - 1).GetComponent<Animator>().SetBool("isActive", true);
     }
 
-    public virtual void Hold()
+    public virtual void Hold (float holdValue)
     {
-
+        transform.GetChild(0).GetComponentInChildren<Slider>().value = holdValue;
     }
 
     public virtual void Validate()
@@ -20,6 +22,8 @@ public class MenuButton : MonoBehaviour
 
     public virtual void Exit()
     {
-        GetComponentInChildren<TMP_Text>().color = new Color32(255, 255, 255, 255);
+        GetComponent<Animator>().SetBool("isActive", false);
+        transform.GetChild(0).GetComponentInChildren<Slider>().value = 0;
+        transform.GetChild(transform.childCount - 1).GetComponent<Animator>().SetBool("isActive", false);
     }
 }
