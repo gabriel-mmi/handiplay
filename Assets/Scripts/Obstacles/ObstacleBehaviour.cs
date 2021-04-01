@@ -25,17 +25,16 @@ public class ObstacleBehaviour : MonoBehaviour
         transform.localPosition = transform.localPosition + Time.deltaTime * moveSpeed * Vector3.right;
 
         // Rotation animation
-        transform.GetChild(0).eulerAngles -= new Vector3(0, 0, Time.deltaTime * rotSpeed);
+        transform.GetChild(0).eulerAngles += new Vector3(0, 0, Time.deltaTime * rotSpeed);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         // Apply damages to player and destroy
-        //if (collision.gameObject.tag == "Player")
-        //{
-        //    collision.GetComponent<PlayerBehaviour>().Die();
-        //    Destroy(gameObject);
-        //}
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.transform.GetComponent<PlayerBehavior>().Die();
+        }
     }
 
     // Function to create smoke effect
