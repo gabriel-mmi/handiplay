@@ -10,13 +10,16 @@ public class Player : Entity
     [Space]
     public Transform feetPos;
     public float checkRadius; //Circle qui teste si le joueur peut enchainer un deuxieme saut
-    public LayerMask whatisGrounded; 
+    public LayerMask whatisGrounded;
 
+    public delegate void PlayerDie (Player player);
+    public event PlayerDie OnPlayerDie;
+
+    [HideInInspector] public int statsIndex;
     private Rigidbody rb;
     private float jumpTimeCounter; 
     public float jumpTime; 
     private bool isJumping;
-
 
     void Start()
     {
@@ -32,7 +35,6 @@ public class Player : Entity
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
     }
-
 
     //Fonction de saut
     void Jump()
@@ -67,7 +69,8 @@ public class Player : Entity
 
     public override void Die()
     {
-        Destroy(this.gameObject);
+        if (OnPlayerDie != null) OnPlayerDie(this);
+        Destroy(gameObject);
     }
 }
 

@@ -47,7 +47,11 @@ MonoBehaviour:
   - {fileID: 5411790682558826013, guid: cde03621dfacf15439081fa8193fcd79, type: 3}
   - {fileID: 1686149799262805294, guid: 08b463598f48130458b96a2a236e7a6c, type: 3}
   - {fileID: 3930299429659869796, guid: 575d88c4e9556c649958d229e65f1402, type: 3}
+  actionKey: 9
+  holdTime: 0.75
+  doubleTapTime: 0.2
   settings:
     hearingHelp: 0
     viewHelp: 0
     lowDifficulty: 0
+  playerInRoom: []
