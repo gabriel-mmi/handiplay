@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleManagement : MonoBehaviour
+public class ObstaclesSpawner : MonoBehaviour
 {
-
-    public bool spawn = true;
+    public bool camSpawn = true;
     [Space]
     public GameObject obstacle;
     [Space]
@@ -13,19 +11,17 @@ public class ObstacleManagement : MonoBehaviour
     public float startRate;
     public float minRate;
 
-    float startWaveTime;
+    private float startWaveTime;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //Instantiate(obstacle, startPositionLeft, Quaternion.identity);
         StartCoroutine(StartWave());
     }
 
     private IEnumerator StartWave()
     {
         startWaveTime = Time.time;
-        while(spawn)
+        while(camSpawn)
         {
             // Spawn obstacle
             Instantiate(obstacle, transform.position, Quaternion.Euler(0, 180, 0));

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerBehavior : MonoBehaviour
+public class Player : Entity
 {
     [Range(1, 10)]
     public float jumpForce, fallMultiplier;
@@ -67,7 +65,7 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    public void Die()
+    public override void Die()
     {
         Destroy(this.gameObject);
     }

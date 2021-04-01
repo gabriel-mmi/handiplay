@@ -1,21 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleBehaviour : MonoBehaviour
+public class Obstacle : Entity
 {
     public float moveSpeed, rotSpeed;
     [Space]
     public GameObject collisionEffect;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Destroy obstacle after 10 seconds (so when is not longer used)
-        Destroy(gameObject, 10);
-
         // Create smoke at start
         StartCoroutine(CreateEffectCoroutine(0.1f));
+
+        // Destroy obstacle after 10 seconds (so when is not longer used)
+        Destroy(gameObject, 10);
     }
 
     // Update is called once per frame
@@ -33,7 +31,7 @@ public class ObstacleBehaviour : MonoBehaviour
         // Apply damages to player and destroy
         if (collision.gameObject.tag == "Player")
         {
-            collision.transform.GetComponent<PlayerBehavior>().Die();
+            collision.transform.GetComponent<Player>().Die();
         }
     }
 
@@ -42,5 +40,10 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Instantiate(collisionEffect, transform.position, Quaternion.identity);
+    }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
     }
 }

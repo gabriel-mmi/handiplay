@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
 
         // On all player died
-        if(GameObject.FindObjectsOfType<PlayerBehavior>().Length <= 0 && currentScene.buildIndex == 1)
+        if(GameObject.FindObjectsOfType<Player>().Length <= 0 && currentScene.buildIndex == 1)
         {
             gameIsFinished = true;
             GameObject.FindGameObjectWithTag("EndScreen").transform.GetChild(0).gameObject.SetActive(true);
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
             GameObject newPlayer = Instantiate(playerSkinsPrefabs[newPlayerStats.skinId], new Vector3(spawnPosX, 4, 0), Quaternion.identity);
             spawnPosX += playersDistance;
 
-            PlayerBehavior newPlayerBehavior = newPlayer.GetComponent<PlayerBehavior>();
+            Player newPlayerBehavior = newPlayer.GetComponent<Player>();
             newPlayerBehavior.key = newPlayerStats.input;
         }
 
