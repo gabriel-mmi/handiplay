@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    [Range(1, 10)]
     public float jumpForce;
     public KeyCode key;
     [Space]
@@ -27,6 +28,11 @@ public class PlayerBehavior : MonoBehaviour
     void Update()
     {
         Jump();
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
     }
 
 
