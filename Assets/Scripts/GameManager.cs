@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> playerSkinsPrefabs = new List<GameObject>();
 
-    [HideInInspector] public SettingsProfile settings;
-    private List<PlayerStats> playerInRoom = new List<PlayerStats>();
+    public SettingsProfile settings;
+    [HideInInspector] public List<PlayerStats> playerInRoom = new List<PlayerStats>();
     private Scene currentScene;
 
     // In-game
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     #region On scene loaded callback
     void Start()
     {
-        OnLevelFinishedLoading(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        //OnLevelFinishedLoading(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     void OnEnable()
@@ -68,21 +68,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Start a game
-        if (Input.GetKeyDown(KeyCode.Space) && currentScene.buildIndex == 0)
-        {
-            // 1 : Send settings
-            GameManager.instance.settings = new SettingsProfile(true, true, false);
 
-            // 2 : Send players in room
-            GameManager.instance.AddPlayerToRoom(new PlayerStats(KeyCode.Space, Random.Range(0, 2)));
-            GameManager.instance.AddPlayerToRoom(new PlayerStats(KeyCode.F, Random.Range(0, 2)));
-            GameManager.instance.AddPlayerToRoom(new PlayerStats(KeyCode.Z, Random.Range(0, 2)));
-
-            // 3 : Start the game!
-            GameManager.instance.StartGame();
-        }
         // Left the game
-        else if (Input.GetKeyDown(KeyCode.Space) && gameIsFinished == true)
+        if (Input.GetKeyDown(KeyCode.Space) && gameIsFinished == true)
         {
             gameIsFinished = false;
             QuitGame();
