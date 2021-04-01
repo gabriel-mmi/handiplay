@@ -8,29 +8,34 @@ public class PlayerBehavior : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool isGrounded = false;
+    private bool isGrounded = false; //check si le personnage touche le sol
     public Transform feetPos;
-    public float checkRadius;
-    public LayerMask whatisGrounded;
+    public float checkRadius; //Circle qui teste si le joueur peut enchainer un deuxieme saut
+    public LayerMask whatisGrounded; 
 
-    private float jumpTimeCounter;
-    public float jumpTime;
+    private float jumpTimeCounter; 
+    public float jumpTime; 
     private bool isJumping;
 
 
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Jump();
+    }
+
+
+    //Fonction de saut
+    void Jump()
+    {
         isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, whatisGrounded);
-        
-        if (isGrounded==true && Input.GetKeyDown(KeyCode.Space))
+
+        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector3.up * jumpForce;
             isJumping = true;
@@ -39,11 +44,12 @@ public class PlayerBehavior : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
         {
-            if(jumpTimeCounter > 0)
+            if (jumpTimeCounter > 0)
             {
                 rb.velocity = Vector3.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;  
-            } else
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
             {
                 isJumping = false;
             }
@@ -55,8 +61,11 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    void Jump()
+    public void Die()
     {
-
+        Destroy(this.gameObject);
     }
 }
+
+
+
