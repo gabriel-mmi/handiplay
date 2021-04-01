@@ -8,10 +8,11 @@ public class MainMenu : MonoBehaviour
     public float holdTime, doubleTapTime;
     [Space]
     public MenuSection landingSection;
-    public MenuSection settingsSection;
+    public MenuSection settingsSection, configSection;
 
     private MenuSection currentSection, lastSection;
     private float currentHoldTime, lastTapTime;
+    private bool hadValidateAButton = false;
 
     #region Singleton
     public static MainMenu instance;
@@ -37,15 +38,20 @@ public class MainMenu : MonoBehaviour
             currentHoldTime += Time.deltaTime;
             if(currentHoldTime >= holdTime)
             {
-                currentSection.buttons[currentSection.currentButton].Validate();
+                currentSection.Validate();
+                hadValidateAButton = true;
                 currentHoldTime = 0;
             }
         }
         // Release
         if (Input.GetKeyUp(actionKey))
         {
+            if (!hadValidateAButton)
+            {
+                if (currentSection.buttons.Count > 0) NextButton();
+            }
+            hadValidateAButton = false;
             currentHoldTime = 0;
-            NextButton();
         }
         // Double tap
         if (Input.GetKeyDown(actionKey))

@@ -3,9 +3,8 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class MenuGameConfiguration : MonoBehaviour
+public class MenuGameConfiguration : MenuSection
 {
-    public bool isActive = false;
     public Transform playerUI, playerMeshes;
     public List<GameObject> playerMeshesPrefabs = new List<GameObject>();
 
@@ -16,27 +15,27 @@ public class MenuGameConfiguration : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Add player to room
+        foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
         {
-            // 1 : Send settings
-
-            // 3 : Start the game!
-            //GameManager.instance.StartGame();
-        }
-
-        if (isActive)
-        {
-            // Add player to room
-            foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
+            if (Input.GetKeyDown(kcode) && kcode != KeyCode.Tab)
             {
-                if (Input.GetKeyDown(kcode))
-                {
-                    GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, 2)));
-                    UpdateUI();
-                }
+                GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, 2)));
+                UpdateUI();
             }
         }
 
+    }
+
+    public override void Validate()
+    {
+        GameManager.instance.StartGame();
+    }
+
+    public override void Exit()
+    {
+        GameManager.instance.ClearRoom();
+        UpdateUI();
     }
 
     public void UpdateUI()

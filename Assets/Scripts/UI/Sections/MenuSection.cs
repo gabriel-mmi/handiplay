@@ -8,11 +8,23 @@ public class MenuSection : MonoBehaviour
 
     public void Equip()
     {
-        buttons[0].Landing();
+        if(buttons.Count > 0)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                if (i == 0) buttons[i].Landing();
+                else buttons[i].Exit();
+            }
+        } 
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
         GameManager.instance.settings = new SettingsProfile(true, true, false);
+    }
+
+    public virtual void Validate()
+    {
+        buttons[currentButton].Validate();
     }
 }
