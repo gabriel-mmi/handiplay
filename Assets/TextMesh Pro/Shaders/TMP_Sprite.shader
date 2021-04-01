@@ -2,11 +2,7 @@ Shader "TextMeshPro/Sprite"
 {
 	Properties
 	{
-<<<<<<< HEAD
-		_MainTex ("Sprite Texture", 2D) = "white" {}
-=======
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 		_Color ("Tint", Color) = (1,1,1,1)
 		
 		_StencilComp ("Stencil Comparison", Float) = 8
@@ -51,72 +47,30 @@ Shader "TextMeshPro/Sprite"
 
 		Pass
 		{
-<<<<<<< HEAD
-		CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-=======
             Name "Default"
 		CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
             #pragma target 2.0
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 
 			#include "UnityCG.cginc"
 			#include "UnityUI.cginc"
 
-<<<<<<< HEAD
-			#pragma multi_compile __ UNITY_UI_CLIP_RECT
-			#pragma multi_compile __ UNITY_UI_ALPHACLIP
-=======
             #pragma multi_compile __ UNITY_UI_CLIP_RECT
             #pragma multi_compile __ UNITY_UI_ALPHACLIP
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 			
 			struct appdata_t
 			{
 				float4 vertex   : POSITION;
 				float4 color    : COLOR;
 				float2 texcoord : TEXCOORD0;
-<<<<<<< HEAD
-=======
                 UNITY_VERTEX_INPUT_INSTANCE_ID
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 			};
 
 			struct v2f
 			{
 				float4 vertex   : SV_POSITION;
 				fixed4 color    : COLOR;
-<<<<<<< HEAD
-				half2 texcoord  : TEXCOORD0;
-				float4 worldPosition : TEXCOORD1;
-			};
-			
-			fixed4 _Color;
-			fixed4 _TextureSampleAdd;
-			float4 _ClipRect;
-
-			v2f vert(appdata_t IN)
-			{
-				v2f OUT;
-				OUT.worldPosition = IN.vertex;
-				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
-
-				OUT.texcoord = IN.texcoord;
-				
-				#ifdef UNITY_HALF_TEXEL_OFFSET
-				OUT.vertex.xy += (_ScreenParams.zw-1.0)*float2(-1,1);
-				#endif
-				
-				OUT.color = IN.color * _Color;
-				return OUT;
-			}
-
-			sampler2D _MainTex;
-
-=======
                 float2 texcoord  : TEXCOORD0;
 				float4 worldPosition : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO
@@ -142,16 +96,11 @@ Shader "TextMeshPro/Sprite"
 				return OUT;
 			}
 
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
 				
-<<<<<<< HEAD
-				#if UNITY_UI_CLIP_RECT
-=======
                 #ifdef UNITY_UI_CLIP_RECT
->>>>>>> 436babc7fbd9a0238b3c7bac280206007670c5e6
 					color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
 				#endif
 

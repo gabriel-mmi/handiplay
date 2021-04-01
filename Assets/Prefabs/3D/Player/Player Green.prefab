@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2442793675716198769}
   - component: {fileID: 6956661004376828683}
   - component: {fileID: 5711161079003967342}
-  - component: {fileID: 5711161079003967329}
   - component: {fileID: 2652342544323333281}
+  - component: {fileID: 5711161079003967329}
   m_Layer: 9
   m_Name: Player Green
   m_TagString: Player
@@ -101,26 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5711161079003967329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686149799262805294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295cdd3663e4ae14fb04345778d25349, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 3
-  key: 0
-  feetPos: {fileID: 4876000631154263043}
-  checkRadius: 0.3
-  whatisGrounded:
-    serializedVersion: 2
-    m_Bits: 256
-  jumpTime: 0.35
 --- !u!136 &2652342544323333281
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -135,6 +115,27 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5711161079003967329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686149799262805294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295cdd3663e4ae14fb04345778d25349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 3
+  fallMultiplier: 6.87
+  key: 0
+  feetPos: {fileID: 4876000631154263043}
+  checkRadius: 0.3
+  whatisGrounded:
+    serializedVersion: 2
+    m_Bits: 256
+  jumpTime: 0.35
 --- !u!1 &3700209599047820212
 GameObject:
   m_ObjectHideFlags: 0

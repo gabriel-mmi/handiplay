@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     [Range(1, 10)]
-    public float jumpForce;
+    public float jumpForce, fallMultiplier;
     public KeyCode key;
     [Space]
     private bool isGrounded = false; //check si le personnage touche le sol
