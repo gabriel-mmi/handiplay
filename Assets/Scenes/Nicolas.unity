@@ -422,9 +422,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca26624229295041b8926ef6664855b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 3
   spawn: 1
   obstacle: {fileID: 1936668671810607370, guid: 3ddfa7fbfdbea414085eb6929b5e5241, type: 3}
+  rateDecreaseSpeed: 0.2
+  startRate: 3
+  minRate: 0.8
 --- !u!4 &1999214922
 Transform:
   m_ObjectHideFlags: 0
@@ -433,7 +435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999214920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -0.11, z: -2.82}
+  m_LocalPosition: {x: -10.18, y: -0.733, z: -2.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
