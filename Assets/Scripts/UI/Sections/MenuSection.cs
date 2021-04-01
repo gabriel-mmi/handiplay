@@ -8,7 +8,9 @@ public class MenuSection : MonoBehaviour
 
     public void Equip()
     {
-        if(buttons.Count > 0)
+        GetComponent<Animator>().SetBool("isActive", true);
+
+        if (buttons.Count > 0)
         {
             for (int i = 0; i < buttons.Count; i++)
             {
@@ -20,11 +22,17 @@ public class MenuSection : MonoBehaviour
 
     public virtual void Exit()
     {
+        GetComponent<Animator>().SetBool("isActive", false);
         GameManager.instance.settings = new SettingsProfile(true, true, false);
     }
 
     public virtual void Validate()
     {
         buttons[currentButton].Validate();
+    }
+
+    public virtual void Hold (float holdValue)
+    {
+        buttons[currentButton].Hold(holdValue);
     }
 }
