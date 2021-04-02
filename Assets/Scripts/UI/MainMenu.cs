@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public KeyCode actionKey;
-    public float holdTime, doubleTapTime;
     [Space]
     public MenuSection landingSection;
     public MenuSection settingsSection, configSection;
@@ -29,17 +28,23 @@ public class MainMenu : MonoBehaviour
     {
         currentSection = landingSection;
         currentSection.Equip();
+
+        // Update settings toggles
+        settingsSection.buttons[0].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.hearingHelp);
+        settingsSection.buttons[1].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.viewHelp);
+        settingsSection.buttons[2].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.lowDifficulty);
     }
 
     void Update()
     {
         // Hold
-        if (Input.GetKey(actionKey))
+        if (Input.GetKey(GameManager.instance.actionKey) && !hadValidateAButton)
         {
             currentHoldTime += Time.deltaTime;
-            currentSection.Hold(Mathf.Clamp(currentHoldTime / holdTime * 100, 0, 100));
+            float holdValue = Mathf.Clamp(currentHoldTime / GameManager.instance.holdTime * 100, 0, 100);
+            currentSection.Hold(holdValue);
 
-            if(currentHoldTime >= holdTime)
+            if(currentHoldTime >= GameManager.instance.holdTime)
             {
                 currentSection.Validate();
                 hadValidateAButton = true;
@@ -47,7 +52,7 @@ public class MainMenu : MonoBehaviour
             }
         }
         // Release
-        if (Input.GetKeyUp(actionKey))
+        if (Input.GetKeyUp(GameManager.instance.actionKey))
         {
             if (!hadValidateAButton)
             {
@@ -59,9 +64,9 @@ public class MainMenu : MonoBehaviour
             currentHoldTime = 0;
         }
         // Double tap
-        if (Input.GetKeyDown(actionKey))
+        if (Input.GetKeyDown(GameManager.instance.actionKey))
         {
-            if (Time.time - lastTapTime > doubleTapTime)
+            if (Time.time - lastTapTime > GameManager.instance.doubleTapTime)
                 lastTapTime = Time.time;
             else
             {
@@ -87,7 +92,7 @@ public class MainMenu : MonoBehaviour
     {
         currentSection.Exit();
         lastSection = currentSection;
-        currentSection.gameObject.SetActive(false);
+        if(currentSection == configSection) currentSection.gameObject.SetActive(false);
 
         currentSection = newSection;
 
