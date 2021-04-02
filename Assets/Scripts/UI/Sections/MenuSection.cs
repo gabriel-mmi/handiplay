@@ -15,10 +15,17 @@ public class MenuSection : MonoBehaviour
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (i == 0) buttons[i].Landing();
+                if (i == 0) buttons[i].Landing(false);
                 else buttons[i].Exit();
             }
-        } 
+        }
+
+        // Play voice over
+        if (GetComponent<Readable>() != null)
+        {
+            GetComponent<Readable>().Read();
+            //print("gaetan");
+        }
     }
 
     public virtual void Exit()
