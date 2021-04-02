@@ -9,7 +9,7 @@ public class MenuGameConfiguration : MenuSection
     public GameObject youCanStartTip, youAreFullTip;
     public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full;
 
-    private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gracou", "Gaytan", "Ganis", "Grabriel" };
+    private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
     private float startTime;
 
     void Start()
