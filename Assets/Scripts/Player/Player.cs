@@ -2,23 +2,23 @@
 
 public class Player : Entity
 {
-    [Range(1, 50)]
-    public float jumpForce, fallMultiplier;
     public KeyCode key;
     [Space]
-    private bool isGrounded = false; //check si le personnage touche le sol
+    [Range(1, 50)] public float jumpForce;
+    [Range(0, 50)] public float fallMultiplier;
+    public float jumpTime; 
     [Space]
     public Transform feetPos;
     public float checkRadius; //Circle qui teste si le joueur peut enchainer un deuxieme saut
-    public LayerMask whatisGrounded;
+    public LayerMask groundMask;
 
     public delegate void PlayerDie (Player player);
     public event PlayerDie OnPlayerDie;
 
     [HideInInspector] public int statsIndex;
     private Rigidbody rb;
+    private bool isGrounded = false; //check si le personnage touche le sol
     private float jumpTimeCounter; 
-    public float jumpTime; 
     private bool isJumping;
 
     void Start()
@@ -39,7 +39,7 @@ public class Player : Entity
     //Fonction de saut
     void Jump()
     {
-        isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, whatisGrounded);
+        isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, groundMask);
 
         if (isGrounded == true && Input.GetKeyDown(key))
         {
@@ -71,6 +71,12 @@ public class Player : Entity
     {
         if (OnPlayerDie != null) OnPlayerDie(this);
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(feetPos.position, checkRadius);
     }
 }
 

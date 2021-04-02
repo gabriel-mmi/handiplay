@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class GameManager : MonoBehaviour
     [Space]
     public KeyCode actionKey;
     public float holdTime, doubleTapTime;
-
-    public SettingsProfile settings;
+    [Space]
+    public VolumeProfile highQualitySettings;
+    public VolumeProfile lowQualitySettings;
+    [HideInInspector] public SettingsProfile settings;
     [HideInInspector] public List<PlayerStats> playerInRoom = new List<PlayerStats>();
     private Scene currentScene;
 
@@ -115,6 +118,13 @@ public class GameManager : MonoBehaviour
         foreach (Player player in FindObjectsOfType<Player>())
         {
             player.OnPlayerDie += OnPlayerDie;
+        }
+
+        // Quality settings applying
+        if (settings.lowQuality)
+        {
+            Volume volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>();
+            volume.profile = lowQualitySettings;
         }
 
         scoreBoard.Clear();

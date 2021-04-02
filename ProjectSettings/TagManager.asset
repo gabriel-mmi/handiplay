@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - EndScreen
+  - PostProcessing
   layers:
   - Default
   - TransparentFX

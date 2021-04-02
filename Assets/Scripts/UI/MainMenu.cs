@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
         settingsSection.buttons[2].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.lowDifficulty);
 
         // Play voice over
-        GetComponent<Readable>().Read();
+        if (GameManager.instance.settings.hearingHelp) GetComponent<Readable>().Read();
     }
 
     void Update()
