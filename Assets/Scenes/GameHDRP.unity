@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.057197522, g: 0.28730103, b: 0.78984696, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 1.74
+  m_Intensity: 3.3
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -933,7 +933,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0, g: 0.11185837, b: 1, a: 1}
-  m_Intensity: 1.74
+  m_Intensity: 3.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1630,6 +1630,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413401642}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1440931950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 87e601c94e6fede44b6a0370757cc35c, type: 3}
+  m_PrefabInstance: {fileID: 775990964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1440931951
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440931950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.25, y: 1, z: 3.2519846}
+  m_Center: {x: -13.27, y: 0, z: 0.5629964}
 --- !u!1 &1454422172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,7 +1770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457824535}
   m_LocalRotation: {x: -0.1974724, y: -0.38078356, z: 0.022091843, w: 0.9030618}
-  m_LocalPosition: {x: -15.62, y: -7.5, z: 52.36}
+  m_LocalPosition: {x: -5.8, y: -7.5, z: 73.2}
   m_LocalScale: {x: 5.7504215, y: 22.541075, z: 5.7504215}
   m_Children: []
   m_Father: {fileID: 2118161013}
@@ -1850,7 +1868,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9749921, b: 0.8443396, a: 1}
-  m_Intensity: 2.38
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1933,7 +1951,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 2.38
+  m_Intensity: 3
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
