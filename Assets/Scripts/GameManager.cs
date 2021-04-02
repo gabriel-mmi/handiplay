@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        settings.hearingHelp = true;
     }
     #endregion
 
@@ -57,7 +59,6 @@ public class GameManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
-                settings.hearingHelp = true;
                 Debug.Log("Welcome to Super Majors All Stars!");
                 break;
 
@@ -87,6 +88,11 @@ public class GameManager : MonoBehaviour
     // Quit main menu and go to game's scene
     public void StartGame()
     {
+        StartCoroutine(StartGameCoroutine());
+    }
+    private IEnumerator StartGameCoroutine()
+    {
+        yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene(1);
     }
 

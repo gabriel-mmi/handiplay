@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [Space]
     public MenuSection landingSection;
     public MenuSection settingsSection, configSection;
+    [Space]
+    public AudioSource uiSource;
+    public AudioClip landingClip, validateClip;
 
     private MenuSection currentSection, lastSection;
     private float currentHoldTime, lastTapTime;
@@ -53,8 +55,15 @@ public class MainMenu : MonoBehaviour
             if(currentHoldTime >= GameManager.instance.holdTime)
             {
                 currentSection.Validate();
+
                 hadValidateAButton = true;
                 currentHoldTime = 0;
+
+                if(currentSection.buttons.Count > 0)
+                {
+                    uiSource.Stop();
+                    uiSource.PlayOneShot(validateClip);
+                }     
             }
         }
         // Release
@@ -62,7 +71,12 @@ public class MainMenu : MonoBehaviour
         {
             if (!hadValidateAButton)
             {
-                if (currentSection.buttons.Count > 0) NextButton();
+                if (currentSection.buttons.Count > 0)
+                {
+                    NextButton();
+                    uiSource.Stop();
+                    uiSource.PlayOneShot(landingClip);
+                }
             }else {
                 currentSection.Hold(0);
             }
