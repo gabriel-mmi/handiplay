@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Value: 3
   toeStrength:
     m_OverrideState: 1
-    m_Value: 0.64
+    m_Value: 0.75
     min: 0
     max: 1
   toeLength:
@@ -134,16 +134,16 @@ MonoBehaviour:
     m_Value: 2
   threshold:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.22
+    m_Value: 0.89
     min: 0
     max: 1
   scatter:
     m_OverrideState: 1
-    m_Value: 0.22
+    m_Value: 0
     min: 0
     max: 1
   tint:
@@ -200,7 +200,7 @@ MonoBehaviour:
     max: 1
   radius:
     m_OverrideState: 1
-    m_Value: 3.22
+    m_Value: 4.3
     min: 0.25
     max: 5
   temporalAccumulation:
@@ -282,7 +282,7 @@ MonoBehaviour:
     m_Value: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_Value: {r: 1, g: 0.8349056, b: 0.8349056, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 152.2
+    m_Value: 170
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
