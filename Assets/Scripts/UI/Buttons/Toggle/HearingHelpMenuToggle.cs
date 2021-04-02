@@ -1,4 +1,6 @@
-﻿public class HearingHelpMenuToggle : MenuToggle
+﻿using UnityEngine;
+
+public class HearingHelpMenuToggle : MenuToggle
 {
     public override void Toggle(bool _value)
     {

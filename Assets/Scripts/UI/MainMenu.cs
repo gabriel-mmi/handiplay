@@ -31,8 +31,14 @@ public class MainMenu : MonoBehaviour
 
         // Update settings toggles
         settingsSection.buttons[0].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.hearingHelp);
+        settingsSection.buttons[0].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.hearingHelp);
         settingsSection.buttons[1].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.viewHelp);
+        settingsSection.buttons[1].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.viewHelp);
         settingsSection.buttons[2].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.lowDifficulty);
+        settingsSection.buttons[2].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.lowDifficulty);
+
+        // Play voice over
+        GetComponent<Readable>().Read();
     }
 
     void Update()
@@ -64,14 +70,17 @@ public class MainMenu : MonoBehaviour
             currentHoldTime = 0;
         }
         // Double tap
-        if (Input.GetKeyDown(GameManager.instance.actionKey))
+        if (Input.GetKeyDown(GameManager.instance.actionKey) && !hadValidateAButton)
         {
             if (Time.time - lastTapTime > GameManager.instance.doubleTapTime)
                 lastTapTime = Time.time;
             else
             {
                 if (lastSection != null)
+                {
                     SwitchSection(lastSection);
+                    hadValidateAButton = true;
+                }
             }
         }
     }

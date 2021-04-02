@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
+                settings.hearingHelp = true;
                 Debug.Log("Welcome to Super Majors All Stars!");
                 break;
 
