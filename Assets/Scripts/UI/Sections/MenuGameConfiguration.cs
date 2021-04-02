@@ -9,7 +9,7 @@ public class MenuGameConfiguration : MenuSection
     public GameObject youCanStartTip, youAreFullTip;
     public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full;
 
-    private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gracou", "Gaytan", "Ganis", "Grabriel" };
+    private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
     private float startTime;
 
     void Start()
@@ -24,41 +24,40 @@ public class MenuGameConfiguration : MenuSection
         {
             if (Input.GetKeyDown(kcode) && kcode != KeyCode.Tab)
             {
-                bool alreadyTaken = false;
-                foreach (PlayerStats stat in GameManager.instance.playerInRoom)
+                if (GameManager.instance.playerInRoom.Count < 4)
                 {
-                    if (stat.input == kcode) alreadyTaken = true;
-                }
+                    bool alreadyTaken = false;
+                    foreach (PlayerStats stat in GameManager.instance.playerInRoom)
+                    {
+                        if (stat.input == kcode) alreadyTaken = true;
+                    }
 
-                if (!alreadyTaken)
-                {
-                    GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, 2)));
-                    UpdateUI();
-                    if(GameManager.instance.playerInRoom.Count == 1)
+                    if (!alreadyTaken)
                     {
-                        VoiceOverManager.instance.Read(onePlayer);
+                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, GameManager.instance.playerSkinsPrefabs.Count)));
+                        UpdateUI();
+                        if (GameManager.instance.playerInRoom.Count == 1)
+                        {
+                            VoiceOverManager.instance.Read(onePlayer);
+                        }
+                        else if (GameManager.instance.playerInRoom.Count == 2)
+                        {
+                            youCanStartTip.SetActive(true);
+                            youAreFullTip.SetActive(false);
+                            VoiceOverManager.instance.Read(twoPlayers);
+                        }
+                        else if (GameManager.instance.playerInRoom.Count == 3)
+                        {
+                            VoiceOverManager.instance.Read(threePlayers);
+                        }
+                        else if (GameManager.instance.playerInRoom.Count == 4)
+                        {
+                            youCanStartTip.SetActive(false);
+                            youAreFullTip.SetActive(true);
+                            VoiceOverManager.instance.Read(fourPlayers);
+                        }
                     }
-                    else if (GameManager.instance.playerInRoom.Count == 2)
-                    {
-                        youCanStartTip.SetActive(true);
-                        youAreFullTip.SetActive(false);
-                        VoiceOverManager.instance.Read(twoPlayers);
-                    }
-                    else if (GameManager.instance.playerInRoom.Count == 3)
-                    {
-                        VoiceOverManager.instance.Read(threePlayers);
-                    }
-                    else if (GameManager.instance.playerInRoom.Count == 4)
-                    {
-                        youCanStartTip.SetActive(false);
-                        youAreFullTip.SetActive(true);
-                        VoiceOverManager.instance.Read(fourPlayers);
-                    }
-                    else
-                    {
-                        VoiceOverManager.instance.Read(full);
-                    }
-                }
+                }else { VoiceOverManager.instance.Read(full); }
             }
         }
 

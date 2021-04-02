@@ -8,6 +8,7 @@ public class EndGameMenu : MonoBehaviour
 {
     public MenuButton button;
     public TMP_Text firstTime, secondTime, thirdTime;
+    public List<AudioClip> customsEndVoicesOver = new List<AudioClip>();
     private float currentHoldTime, lastTapTime;
 
     #region Singleton
@@ -62,7 +63,10 @@ public class EndGameMenu : MonoBehaviour
     {
         firstTime.text = FromatTime(GameManager.instance.GetPlayerTime(firstPlayer));
         secondTime.text = FromatTime(GameManager.instance.GetPlayerTime(secondPlayer));
-        thirdTime.text = FromatTime(GameManager.instance.GetPlayerTime(thirdPlayer));
+        if (thirdPlayer > 0) thirdTime.text = FromatTime(GameManager.instance.GetPlayerTime(thirdPlayer));
+        else thirdTime.text = "";
+
+        VoiceOverManager.instance.Read(customsEndVoicesOver[firstPlayer]);
     }
 
     private string FromatTime(float time)
