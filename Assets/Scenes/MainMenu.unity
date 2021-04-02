@@ -727,6 +727,11 @@ MonoBehaviour:
   playerUI: {fileID: 1663288071}
   youCanStartTip: {fileID: 103685440}
   youAreFullTip: {fileID: 177882155}
+  onePlayer: {fileID: 0}
+  twoPlayers: {fileID: 0}
+  threePlayers: {fileID: 0}
+  fourPlayers: {fileID: 0}
+  full: {fileID: 0}
 --- !u!224 &93604215
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4760,6 +4765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1191717602}
+  activateClip: {fileID: 0}
+  desactivateClip: {fileID: 0}
 --- !u!114 &1210383484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5928,6 +5935,10 @@ PrefabInstance:
     - target: {fileID: 7012453892569272217, guid: 5310622c855a07941af326f1ecd61ad4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897980752325059752, guid: 5310622c855a07941af326f1ecd61ad4, type: 3}
+      propertyPath: playerSkinsPrefabs.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5310622c855a07941af326f1ecd61ad4, type: 3}
@@ -7899,6 +7910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1264553211}
+  activateClip: {fileID: 0}
+  desactivateClip: {fileID: 0}
 --- !u!114 &1981703219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9304,6 +9317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 1888738855}
+  activateClip: {fileID: 0}
+  desactivateClip: {fileID: 0}
 --- !u!114 &3994162018746296684
 MonoBehaviour:
   m_ObjectHideFlags: 0

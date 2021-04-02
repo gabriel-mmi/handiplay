@@ -127,14 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295cdd3663e4ae14fb04345778d25349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 3
-  fallMultiplier: 6.87
+  jumpForce: 6
+  fallMultiplier: 3
   key: 0
   feetPos: {fileID: 2294559827718840112}
   checkRadius: 0.3
   whatisGrounded:
     serializedVersion: 2
     m_Bits: 256
+  statsIndex: 0
   jumpTime: 0.35
 --- !u!1 &8008855591926347911
 GameObject:

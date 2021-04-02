@@ -2,7 +2,7 @@
 
 public class Player : Entity
 {
-    [Range(1, 10)]
+    [Range(1, 50)]
     public float jumpForce, fallMultiplier;
     public KeyCode key;
     [Space]
