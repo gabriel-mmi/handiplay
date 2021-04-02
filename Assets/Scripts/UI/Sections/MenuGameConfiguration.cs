@@ -34,7 +34,7 @@ public class MenuGameConfiguration : MenuSection
 
                     if (!alreadyTaken)
                     {
-                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, 2)));
+                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, GameManager.instance.playerSkinsPrefabs.Count)));
                         UpdateUI();
                         if (GameManager.instance.playerInRoom.Count == 1)
                         {
