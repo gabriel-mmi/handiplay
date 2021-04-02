@@ -39,20 +39,20 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_1D2D6758: 38.59
-    - Vector1_2B356380: 250
-    - Vector1_3783F0D6: 20
-    - Vector1_4386BB13: 23
-    - Vector1_7892E05E: 24.6
-    - Vector1_7D71E79C: 1.06
-    - Vector1_89D9BA77: -0.06
-    - Vector1_8B47B562: -0.17
-    - Vector1_8F52779E: 0.58
-    - Vector1_97EA0DEA: 0.01
-    - Vector1_ACA8BF6B: 101.7
-    - Vector1_BB19229D: 30
-    - Vector1_DD2A7971: 1.01
-    - Vector1_F4FD2233: -0.31
+    - Vector1_1D2D6758: 10
+    - Vector1_2B356380: 217.4
+    - Vector1_3783F0D6: 5
+    - Vector1_4386BB13: 5.1
+    - Vector1_7892E05E: 47.1
+    - Vector1_7D71E79C: 1.29
+    - Vector1_89D9BA77: -0.02
+    - Vector1_8B47B562: 0.4
+    - Vector1_8F52779E: 0.4
+    - Vector1_97EA0DEA: 0.025
+    - Vector1_ACA8BF6B: 8.1
+    - Vector1_BB19229D: 10
+    - Vector1_DD2A7971: 1.24
+    - Vector1_F4FD2233: 0.1
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
@@ -90,10 +90,10 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_5100B6B6: {r: 0.86196613, g: 0.53333336, b: 1, a: 1}
+    - Color_5100B6B6: {r: 0.8845727, g: 0.6933962, b: 1, a: 1}
     - Color_9F979F9B: {r: 1, g: 1, b: 1, a: 0}
     - Vector4_4FE19BDB: {r: 1, g: 0, b: 0, a: 90}
-    - Vector4_53C3CAF3: {r: -0.45, g: 1, b: -0.69, a: 1}
+    - Vector4_53C3CAF3: {r: -2.17, g: 0.96, b: -0.95, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
