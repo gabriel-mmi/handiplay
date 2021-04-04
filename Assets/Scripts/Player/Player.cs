@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : Entity
 {
@@ -12,6 +13,9 @@ public class Player : Entity
     public Transform feetPos;
     public float checkRadius; //Circle qui teste si le joueur peut enchainer un deuxieme saut
     public LayerMask groundMask;
+    [Space]
+    public Animator meshAnimator;
+    public GameObject deathEffect;
 
     public delegate void PlayerDie (Player player);
     public event PlayerDie OnPlayerDie;
@@ -20,7 +24,8 @@ public class Player : Entity
     private Rigidbody rb;
     private Vector2 nextVelocity;
     private bool isGrounded, isJumping = false; //check si le personnage touche le sol et si il saute
-    private float jumpTimeCounter, lastJumpTime = -500f; 
+    private float jumpTimeCounter, lastJumpTime = -500f;
+    private bool autoJump;
 
     void Start()
     {
@@ -31,6 +36,9 @@ public class Player : Entity
     {
         nextVelocity = Vector2.zero;
         isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, groundMask);
+
+        // Animations
+        meshAnimator.SetBool("isJumping", !isGrounded);
 
         // Start jump
         if (!isJumping)
@@ -54,7 +62,7 @@ public class Player : Entity
         // End jump
         if (isJumping)
         {
-            if (Input.GetKeyUp(key) || isGrounded)
+            if (Input.GetKeyUp(key))
             {
                 isJumping = false;
                 jumpTimeCounter = 0;
@@ -97,7 +105,15 @@ public class Player : Entity
 
     public override void Die()
     {
+        base.Die();
         if (OnPlayerDie != null) OnPlayerDie(this);
+        StartCoroutine(DieCoroutine());
+    }
+    private IEnumerator DieCoroutine()
+    {
+        meshAnimator.SetTrigger("isDead");
+        yield return new WaitForSeconds(2f);
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

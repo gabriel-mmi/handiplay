@@ -46,16 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkinsPrefabs:
-  - {fileID: 5411790682558826013, guid: cde03621dfacf15439081fa8193fcd79, type: 3}
-  - {fileID: 1686149799262805294, guid: 08b463598f48130458b96a2a236e7a6c, type: 3}
-  - {fileID: 3930299429659869796, guid: 575d88c4e9556c649958d229e65f1402, type: 3}
+  - {fileID: 7520396819117360948, guid: 9b22001c342cfc049b02ff084715750e, type: 3}
+  - {fileID: 678738422048657104, guid: ced1959b8c2edf8428720474a7f111ce, type: 3}
+  - {fileID: 2019295732045545719, guid: 2ce47469ac2e3ec4997664c521394058, type: 3}
+  - {fileID: 1375807354968679169, guid: b61be047a720a9141b38023f98bbfcf5, type: 3}
+  - {fileID: 5419464286474387986, guid: 335a5df1d7ce62c4bb6ecdbedab8d4df, type: 3}
+  - {fileID: 6709997930681826772, guid: b201eb1edb034814f9bb05f26540755b, type: 3}
   actionKey: 9
   holdTime: 0.75
   doubleTapTime: 0.2
+  highQualitySettings: {fileID: 11400000, guid: 5cf509d5d99e22747813fe2ff5e491b4, type: 2}
+  lowQualitySettings: {fileID: 11400000, guid: e1d64fe32d07cc54ab0444ee3691a4c6, type: 2}
   settings:
     hearingHelp: 0
     viewHelp: 0
     lowDifficulty: 0
+    lowQuality: 0
   playerInRoom: []
 --- !u!82 &1980851988
 AudioSource:
