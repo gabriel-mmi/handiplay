@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
 public class MenuGameConfiguration : MenuSection
 {
     public Transform playerUI;
+    public Slider bgSlider;
     public GameObject youCanStartTip, youAreFullTip;
     public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full, playerJoined, startGame;
 
@@ -79,6 +81,14 @@ public class MenuGameConfiguration : MenuSection
         if (GetComponent<Readable>() != null)
         {
             GetComponent<Readable>().Read();
+        }
+    }
+
+    public override void Hold(float holdValue)
+    {
+        if(GameManager.instance.playerInRoom.Count >= 2)
+        {
+            bgSlider.value = holdValue;
         }
     }
 
