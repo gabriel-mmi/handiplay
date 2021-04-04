@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5317899135381577933}
   - component: {fileID: 5317899135381577934}
   m_Layer: 0
-  m_Name: Obstacle Manager
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,11 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca26624229295041b8926ef6664855b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camSpawn: 1
+  canSpawn: 1
   obstacle: {fileID: 1936668671810607370, guid: 3ddfa7fbfdbea414085eb6929b5e5241, type: 3}
-  rateDecreaseSpeed: 0.2
+  startDelay: 3
+  rateDecreaseSpeed: 0.08
   startRate: 3
-  minRate: 0.8
+  minRate: 1.1
 --- !u!1 &5886225071991833398
 GameObject:
   m_ObjectHideFlags: 0

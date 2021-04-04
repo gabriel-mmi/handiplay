@@ -11,6 +11,7 @@ public class MenuGameConfiguration : MenuSection
 
     private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
     private float startTime;
+    private List<int> skinsId;
 
     void Start()
     {
@@ -34,8 +35,10 @@ public class MenuGameConfiguration : MenuSection
 
                     if (!alreadyTaken)
                     {
-                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, GameManager.instance.playerSkinsPrefabs.Count)));
-                        
+                        int id = UnityEngine.Random.Range(0, skinsId.Count - 1);
+                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, skinsId[id]));
+                        skinsId.RemoveAt(id);
+
                         UpdateUI();
                         MainMenu.instance.uiSource.Stop();
                         MainMenu.instance.uiSource.PlayOneShot(playerJoined);
@@ -70,6 +73,8 @@ public class MenuGameConfiguration : MenuSection
     public override void Equip()
     {
         startTime = Time.time;
+
+        skinsId = new List<int> { 0, 1, 2, 3, 4, 5 };
 
         if (GetComponent<Readable>() != null)
         {

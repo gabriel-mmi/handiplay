@@ -106,8 +106,20 @@ public class GameManager : MonoBehaviour
     public void InitializeGameScene()
     {
         // Create each players
-        float playersDistance = 10 / playerInRoom.Count;
-        float spawnPosX = -(playerInRoom.Count / 2) * playersDistance;
+        float playersDistance = 3;
+        float spawnPosX = playersDistance;
+        switch (playerInRoom.Count)
+        {
+            case 2:
+                spawnPosX *= -0.5f;
+                break;
+            case 3:
+                spawnPosX *= -1f;
+                break;
+            case 4:
+                spawnPosX *= -1.5f;
+                break;
+        }
         
         for(int i = 0; i < playerInRoom.Count; i++)
         {

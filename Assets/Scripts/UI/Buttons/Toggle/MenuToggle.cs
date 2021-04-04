@@ -28,8 +28,11 @@ public class MenuToggle : MenuButton
 
     public override void ReadVoiceOver()
     {
-        if (value) VoiceOverManager.instance.Read(desactivateClip);
-        else VoiceOverManager.instance.Read(activateClip);
+        if (GameManager.instance.settings.hearingHelp)
+        {
+            if (value) VoiceOverManager.instance.Read(activateClip);
+            else VoiceOverManager.instance.Read(desactivateClip);
+        }
     }
 
     public void SetValue(bool newValue)
