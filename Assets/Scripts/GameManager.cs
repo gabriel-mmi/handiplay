@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class GameManager : MonoBehaviour
     [Space]
     public KeyCode actionKey;
     public float holdTime, doubleTapTime;
-
-    public SettingsProfile settings;
+    [Space]
+    public VolumeProfile highQualitySettings;
+    public VolumeProfile lowQualitySettings;
+    [HideInInspector] public SettingsProfile settings;
     [HideInInspector] public List<PlayerStats> playerInRoom = new List<PlayerStats>();
     private Scene currentScene;
 
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        settings.hearingHelp = true;
     }
     #endregion
 
@@ -54,7 +59,6 @@ public class GameManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
-                settings.hearingHelp = true;
                 Debug.Log("Welcome to Super Majors All Stars!");
                 break;
 
@@ -84,6 +88,11 @@ public class GameManager : MonoBehaviour
     // Quit main menu and go to game's scene
     public void StartGame()
     {
+        StartCoroutine(StartGameCoroutine());
+    }
+    private IEnumerator StartGameCoroutine()
+    {
+        yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene(1);
     }
 
@@ -115,6 +124,13 @@ public class GameManager : MonoBehaviour
         foreach (Player player in FindObjectsOfType<Player>())
         {
             player.OnPlayerDie += OnPlayerDie;
+        }
+
+        // Quality settings applying
+        if (settings.lowQuality)
+        {
+            Volume volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>();
+            volume.profile = lowQualitySettings;
         }
 
         scoreBoard.Clear();

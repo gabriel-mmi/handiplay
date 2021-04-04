@@ -2,24 +2,25 @@
 
 public class Player : Entity
 {
-    [Range(1, 50)]
-    public float jumpForce, fallMultiplier;
     public KeyCode key;
     [Space]
-    private bool isGrounded = false; //check si le personnage touche le sol
+    [Range(1, 50)] public float jumpForce;
+    [Range(0, 50)] public float fallMultiplier;
+    public float jumpTime;
+    public float jumpToleranceTime;
     [Space]
     public Transform feetPos;
     public float checkRadius; //Circle qui teste si le joueur peut enchainer un deuxieme saut
-    public LayerMask whatisGrounded;
+    public LayerMask groundMask;
 
     public delegate void PlayerDie (Player player);
     public event PlayerDie OnPlayerDie;
 
     [HideInInspector] public int statsIndex;
     private Rigidbody rb;
-    private float jumpTimeCounter; 
-    public float jumpTime; 
-    private bool isJumping;
+    private Vector2 nextVelocity;
+    private bool isGrounded, isJumping = false; //check si le personnage touche le sol et si il saute
+    private float jumpTimeCounter, lastJumpTime = -500f; 
 
     void Start()
     {
@@ -28,49 +29,82 @@ public class Player : Entity
 
     void Update()
     {
-        Jump();
+        nextVelocity = Vector2.zero;
+        isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, groundMask);
 
+        // Start jump
+        if (!isJumping)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                lastJumpTime = Time.time;
+            }
+            if ((Time.time - lastJumpTime) <= jumpToleranceTime)
+            {
+                if (isGrounded)
+                {
+                    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+                    isJumping = true;
+                    jumpTimeCounter = jumpTime;
+                }
+            }
+        }
+
+        // End jump
+        if (isJumping)
+        {
+            if (Input.GetKeyUp(key) || isGrounded)
+            {
+                isJumping = false;
+                jumpTimeCounter = 0;
+            }
+        }
+
+        // During jump
+        if (Input.GetKey(key))
+        {
+            if (isJumping)
+            {
+                if (jumpTimeCounter > 0)
+                {
+                    nextVelocity = Vector3.up * jumpForce;
+                    jumpTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    isJumping = false;
+                    jumpTimeCounter = 0;
+                }
+            }
+        }
+
+        // Add gravity on fall out
         if (rb.velocity.y < 0)
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            if (!isGrounded)
+            {
+                nextVelocity = -Vector3.up * fallMultiplier;
+            }
         }
     }
 
-    //Fonction de saut
-    void Jump()
+    void FixedUpdate()
     {
-        isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, whatisGrounded);
-
-        if (isGrounded == true && Input.GetKeyDown(key))
-        {
-            rb.velocity = Vector3.up * jumpForce;
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-        }
-
-        if (Input.GetKey(key) && isJumping == true)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector3.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-        }
-
-        if (Input.GetKeyUp(key))
-        {
-            isJumping = false;
-        }
+        //rb.velocity = nextVelocity;
+        rb.AddForce(nextVelocity);
     }
 
     public override void Die()
     {
         if (OnPlayerDie != null) OnPlayerDie(this);
         Destroy(gameObject);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(feetPos.position, checkRadius);
     }
 }
 

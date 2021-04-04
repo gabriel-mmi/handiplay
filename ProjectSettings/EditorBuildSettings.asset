@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 361b9bab9ce4f40428a21648e6ab7125
   - enabled: 1
-    path: Assets/Scenes/Development/Game.unity
-    guid: 915bdb3d9cb4033459af08e1d93bebf0
+    path: Assets/Scenes/GameHDRP.unity
+    guid: 525e1beb81fc08b429118c674a1bc267
   - enabled: 1
     path: Assets/Scenes/EndGameMenu.unity
     guid: d2a669feb53d8d5478f4c0b3cb036b99

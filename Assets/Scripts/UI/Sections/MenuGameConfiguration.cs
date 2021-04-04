@@ -7,7 +7,7 @@ public class MenuGameConfiguration : MenuSection
 {
     public Transform playerUI;
     public GameObject youCanStartTip, youAreFullTip;
-    public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full;
+    public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full, playerJoined, startGame;
 
     private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
     private float startTime;
@@ -35,7 +35,11 @@ public class MenuGameConfiguration : MenuSection
                     if (!alreadyTaken)
                     {
                         GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, UnityEngine.Random.Range(0, GameManager.instance.playerSkinsPrefabs.Count)));
+                        
                         UpdateUI();
+                        MainMenu.instance.uiSource.Stop();
+                        MainMenu.instance.uiSource.PlayOneShot(playerJoined);
+
                         if (GameManager.instance.playerInRoom.Count == 1)
                         {
                             VoiceOverManager.instance.Read(onePlayer);
@@ -77,6 +81,11 @@ public class MenuGameConfiguration : MenuSection
     {
         if(GameManager.instance.playerInRoom.Count >= 2 && (Time.time - startTime) > 2)
         {
+            MainMenu.instance.uiSource.Stop();
+            MainMenu.instance.uiSource.PlayOneShot(startGame);
+
+            GetComponent<Animator>().SetTrigger("StartGame");
+
             GameManager.instance.StartGame();
         }
     }
