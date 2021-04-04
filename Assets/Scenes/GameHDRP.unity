@@ -2078,10 +2078,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1386822824932848722, guid: cde03621dfacf15439081fa8193fcd79, type: 3}
-      propertyPath: jumpToleranceTime
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 5411790682558826013, guid: cde03621dfacf15439081fa8193fcd79, type: 3}
       propertyPath: m_Name
       value: Player Blue
