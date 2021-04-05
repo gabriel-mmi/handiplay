@@ -16,9 +16,10 @@ public class Player : Entity
     public LayerMask groundMask;
     [Space]
     public Animator meshAnimator;
-    public GameObject deathEffect;
+    public GameObject deathEffect, jumpEffect;
     public AudioClip jumpClip, destroyClip;
     public List<AudioClip> deathClips = new List<AudioClip>();
+    public TextMesh keyTextMesh;
 
     public delegate void PlayerDie (Player player);
     public event PlayerDie OnPlayerDie;
@@ -35,6 +36,8 @@ public class Player : Entity
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+
+        keyTextMesh.text = key.ToString();
     }
 
     void Update()
@@ -59,6 +62,7 @@ public class Player : Entity
                     if (isGrounded)
                     {
                         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                        Instantiate(jumpEffect, feetPos.position, Quaternion.identity);
                         audioSource.PlayOneShot(jumpClip);
 
                         isJumping = true;
@@ -132,6 +136,11 @@ public class Player : Entity
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(feetPos.position, checkRadius);
+    }
+
+    public void OnGameStart()
+    {
+        keyTextMesh.transform.parent.gameObject.SetActive(false);
     }
 }
 

@@ -15,12 +15,11 @@ public class ObstaclesSpawner : MonoBehaviour
 
     private float startWaveTime;
 
-    void Start()
+    public void StartWave()
     {
-        StartCoroutine(StartWave());
+        StartCoroutine(StartWaveCoroutine());
     }
-
-    private IEnumerator StartWave()
+    private IEnumerator StartWaveCoroutine()
     {
         yield return new WaitForSeconds(startDelay);
         startWaveTime = Time.time;
