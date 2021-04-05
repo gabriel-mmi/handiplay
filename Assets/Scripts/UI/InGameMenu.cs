@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour
 {
+    public AudioSource mainSource;
+
     #region Singleton
     public static InGameMenu instance;
 

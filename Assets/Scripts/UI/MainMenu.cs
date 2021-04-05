@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public MenuSection settingsSection, configSection;
     [Space]
     public AudioSource uiSource;
-    public AudioClip landingClip, validateClip;
+    public AudioClip landingClip, validateClip, cancelClip;
 
     private MenuSection currentSection, lastSection;
     private float currentHoldTime, lastTapTime;
@@ -94,6 +94,9 @@ public class MainMenu : MonoBehaviour
                 {
                     SwitchSection(lastSection);
                     hadValidateAButton = true;
+
+                    uiSource.Stop();
+                    uiSource.PlayOneShot(cancelClip);
                 }
             }
         }

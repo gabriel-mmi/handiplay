@@ -52,6 +52,20 @@ MonoBehaviour:
   - {fileID: 1375807354968679169, guid: b61be047a720a9141b38023f98bbfcf5, type: 3}
   - {fileID: 5419464286474387986, guid: 335a5df1d7ce62c4bb6ecdbedab8d4df, type: 3}
   - {fileID: 6709997930681826772, guid: b201eb1edb034814f9bb05f26540755b, type: 3}
+  majorsAvatars:
+  - {fileID: 21300000, guid: ce9b976551c250f439b1d7077836a0ef, type: 3}
+  - {fileID: 21300000, guid: 487c2181c5a30be48a7196d7ec664df4, type: 3}
+  - {fileID: 21300000, guid: a328e259c2dec2c44ae419a2a2e4094a, type: 3}
+  - {fileID: 21300000, guid: fd741a6519839044e97cca008da20b43, type: 3}
+  - {fileID: 21300000, guid: 838cedbb5197a3549abc12842f9168e1, type: 3}
+  - {fileID: 21300000, guid: 2fc0d938596b58e409736a6f0f2e3630, type: 3}
+  majorsNames:
+  - Grayo
+  - Gradel
+  - Gronico
+  - "Gra\xEBtan"
+  - Granis
+  - Grabriel
   actionKey: 9
   holdTime: 0.75
   doubleTapTime: 0.2

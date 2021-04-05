@@ -7,11 +7,11 @@ using System;
 public class MenuGameConfiguration : MenuSection
 {
     public Transform playerUI;
+    [Space]
     public Slider bgSlider;
     public GameObject youCanStartTip, youAreFullTip;
-    public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full, playerJoined, startGame;
+    public AudioClip onePlayer, twoPlayers, threePlayers, fourPlayers, full, fullSfx, playerJoined, startGame;
 
-    private string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
     private float startTime;
     private List<int> skinsId;
 
@@ -66,7 +66,11 @@ public class MenuGameConfiguration : MenuSection
                             VoiceOverManager.instance.Read(fourPlayers);
                         }
                     }
-                }else { VoiceOverManager.instance.Read(full); }
+                }else 
+                {
+                    MainMenu.instance.uiSource.PlayOneShot(fullSfx);
+                    VoiceOverManager.instance.Read(full); 
+                }
             }
         }
 
@@ -124,7 +128,8 @@ public class MenuGameConfiguration : MenuSection
 
                 // Fill texts
                 PlayerStats playerStats = GameManager.instance.playerInRoom[i];
-                playerInformation.GetChild(0).GetChild(0).GetComponentInChildren<TMP_Text>().text = majorsNames[playerStats.skinId] + " — " + playerStats.input.ToString();
+                playerInformation.GetChild(0).GetChild(0).GetComponentInChildren<TMP_Text>().text = GameManager.instance.majorsNames[playerStats.skinId] + " — " + playerStats.input.ToString();
+                playerInformation.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().sprite = GameManager.instance.majorsAvatars[playerStats.skinId];
             }else
             {
                 // Hide information container

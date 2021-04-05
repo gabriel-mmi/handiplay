@@ -11,9 +11,6 @@ public class Obstacle : Entity
     {
         // Create smoke at start
         StartCoroutine(CreateEffectCoroutine(0.1f));
-
-        // Destroy obstacle after 10 seconds (so when is not longer used)
-        Destroy(gameObject, 10);
     }
 
     // Update is called once per frame
