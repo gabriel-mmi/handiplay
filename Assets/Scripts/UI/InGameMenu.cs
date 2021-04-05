@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class InGameMenu : MonoBehaviour
 {
     public AudioSource mainSource;
+    [Space]
+    public AudioClip whistleClip;
 
     #region Singleton
     public static InGameMenu instance;
@@ -25,6 +27,8 @@ public class InGameMenu : MonoBehaviour
     private IEnumerator QuitSceneCoroutine()
     {
         GetComponentInChildren<Animator>().SetTrigger("Hidden");
+        yield return new WaitForSeconds(1f);
+        mainSource.PlayOneShot(whistleClip);
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(2);
     }

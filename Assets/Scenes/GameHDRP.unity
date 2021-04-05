@@ -2851,6 +2851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSource: {fileID: 242736500}
+  whistleClip: {fileID: 8300000, guid: 7faf27f119c35dc4db7bdcf382f3f8d9, type: 3}
 --- !u!114 &1721287521
 MonoBehaviour:
   m_ObjectHideFlags: 0

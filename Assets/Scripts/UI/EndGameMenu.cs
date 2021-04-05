@@ -6,10 +6,13 @@ using System;
 
 public class EndGameMenu : MonoBehaviour
 {
-    public MenuButton button;
-    public TMP_Text firstTime, secondTime, thirdTime;
-    public Image firstAvatar, secondAvatar, thirdAvatar;
+    public MenuButton buttonRestart;
+    public TMP_Text firstPlayerTimeText, secondPlayerTimeText, thirdPlayerTimeText;
+    public TMP_Text firstPlayerNameText, secondPlayerNameText, thirdPlayerNameText;
+    public Image firstAvatarImage, secondAvatarImage, thirdAvatarImage;
+    [Space]
     public List<AudioClip> customsEndVoicesOver = new List<AudioClip>();
+
     private float currentHoldTime, lastTapTime;
 
     #region Singleton
@@ -25,9 +28,10 @@ public class EndGameMenu : MonoBehaviour
 
     void Start()
     {
-        button.Landing();
+        buttonRestart.Landing();
     }
 
+    // Inputs actiobs (restart, quit...)
     void Update()
     {
         // Hold
@@ -35,19 +39,19 @@ public class EndGameMenu : MonoBehaviour
         {
             currentHoldTime += Time.deltaTime;
             float holdTime = Mathf.Clamp(currentHoldTime / GameManager.instance.holdTime * 100, 0, 100);
-            button.Hold(holdTime);
+            buttonRestart.Hold(holdTime);
 
             if (currentHoldTime >= GameManager.instance.holdTime)
             {
-                button.Validate();
+                buttonRestart.Validate();
                 currentHoldTime = 0;
             }
         }
         // Release
         if (Input.GetKeyUp(GameManager.instance.actionKey))
         {
+            buttonRestart.Hold(0);
             currentHoldTime = 0;
-            button.Hold(0);
         }
         // Double tap
         if (Input.GetKeyDown(GameManager.instance.actionKey))
@@ -60,34 +64,40 @@ public class EndGameMenu : MonoBehaviour
         }
     }
 
+    // Update texts and avatars
     public void UpdateUI(List<KeyValuePair<int, float>> scoreBoard)
     {
         // First player
         int firstPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 1].Key].skinId;
         float firstPlayerTime = scoreBoard[scoreBoard.Count - 1].Value;
-        firstTime.text = FromatTime(firstPlayerTime);
-        firstAvatar.sprite = GameManager.instance.majorsAvatars[firstPlayerIndex];
+        firstPlayerTimeText.text = FromatTime(firstPlayerTime);
+        firstPlayerNameText.text = GameManager.instance.majorsNames[firstPlayerIndex];
+        firstAvatarImage.sprite = GameManager.instance.majorsAvatars[firstPlayerIndex];
 
         // Second player
         int secondPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 2].Key].skinId;
         float secondPlayerTime = scoreBoard[scoreBoard.Count - 2].Value;
-        secondTime.text = FromatTime(secondPlayerTime);
-        secondAvatar.sprite = GameManager.instance.majorsAvatars[secondPlayerIndex];
+        secondPlayerTimeText.text = FromatTime(secondPlayerTime);
+        secondPlayerNameText.text = GameManager.instance.majorsNames[secondPlayerIndex];
+        secondAvatarImage.sprite = GameManager.instance.majorsAvatars[secondPlayerIndex];
 
         // Third player
         if (scoreBoard.Count >= 3)
         {
             int thirdPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 3].Key].skinId;
             float thirdPlayerTime = scoreBoard[scoreBoard.Count - 3].Value;
-            thirdTime.text = FromatTime(thirdPlayerTime);
-            thirdAvatar.sprite = GameManager.instance.majorsAvatars[thirdPlayerIndex];
+            thirdPlayerTimeText.text = FromatTime(thirdPlayerTime);
+            thirdPlayerNameText.text = GameManager.instance.majorsNames[thirdPlayerIndex];
+            thirdAvatarImage.sprite = GameManager.instance.majorsAvatars[thirdPlayerIndex];
         }
         else
         {
-            thirdTime.gameObject.SetActive(false);
-            thirdAvatar.gameObject.SetActive(false);
+            thirdPlayerTimeText.gameObject.SetActive(false);
+            thirdPlayerNameText.gameObject.SetActive(false);
+            thirdAvatarImage.gameObject.SetActive(false);
         }
 
+        // Voice over
         VoiceOverManager.instance.Read(customsEndVoicesOver[firstPlayerIndex]);
     }
 
