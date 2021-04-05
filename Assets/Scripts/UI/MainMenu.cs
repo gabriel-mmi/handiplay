@@ -31,14 +31,6 @@ public class MainMenu : MonoBehaviour
         currentSection = landingSection;
         currentSection.Equip();
 
-        // Update settings toggles
-        settingsSection.buttons[0].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.hearingHelp);
-        settingsSection.buttons[0].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.hearingHelp);
-        settingsSection.buttons[1].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.viewHelp);
-        settingsSection.buttons[1].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.viewHelp);
-        settingsSection.buttons[2].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.lowDifficulty);
-        settingsSection.buttons[2].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.lowDifficulty);
-
         // Play voice over
         if (GameManager.instance.settings.hearingHelp) GetComponent<Readable>().Read();
     }
@@ -124,5 +116,16 @@ public class MainMenu : MonoBehaviour
 
         currentSection.gameObject.SetActive(true);
         currentSection.Equip();
+    }
+
+    public void UpdateUI()
+    {
+        // Update settings toggles
+        settingsSection.buttons[0].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.hearingHelp);
+        settingsSection.buttons[0].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.hearingHelp);
+        settingsSection.buttons[1].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.viewHelp);
+        settingsSection.buttons[1].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.viewHelp);
+        settingsSection.buttons[2].GetComponent<MenuToggle>().toggle.SetBool("isActive", GameManager.instance.settings.lowDifficulty);
+        settingsSection.buttons[2].GetComponent<MenuToggle>().SetValue(GameManager.instance.settings.lowDifficulty);
     }
 }

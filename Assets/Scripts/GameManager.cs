@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         switch (scene.buildIndex)
         {
             case 0:
-                Debug.Log("Welcome to Super Majors All Stars!");
+                MainMenu.instance.UpdateUI();
                 break;
 
             case 1:
@@ -144,12 +144,23 @@ public class GameManager : MonoBehaviour
         }
 
         // Quality settings applying
+        Volume volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>();
         if (settings.lowQuality)
         {
-            Volume volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>();
             volume.profile = lowQualitySettings;
+        }else
+        {
+            volume.profile = highQualitySettings;
+            InGameMenu.instance.backgroundAssets.SetActive(true);
         }
 
+        // Low difficulty
+        if (settings.lowDifficulty)
+        {
+            FindObjectOfType<ObstaclesSpawner>().rateDecreaseSpeed = 0.02f;
+        }
+
+        // Clear score board and start game!
         scoreBoard.Clear();
         startGameTime = Time.time;
     }

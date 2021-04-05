@@ -10,15 +10,12 @@ public class VoiceOverManager : MonoBehaviour
         {
             instance = this;
         }
+     
+        source = GetComponent<AudioSource>();
     }
     #endregion
 
     AudioSource source;
-
-    void Start()
-    {
-        source = GetComponent<AudioSource>();
-    }
 
     public void Read (AudioClip clip)
     {

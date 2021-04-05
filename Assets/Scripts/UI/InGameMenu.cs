@@ -8,6 +8,7 @@ public class InGameMenu : MonoBehaviour
     public AudioSource mainSource, musicSource;
     public TMP_Text startCounter;
     public Animator showGoAnimator;
+    public GameObject backgroundAssets;
     [Space]
     public AudioClip whistleClip, counterClip;
 

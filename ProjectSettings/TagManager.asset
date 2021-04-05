@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PostProcessing
   - ObstacleTrigger
+  - BackgroundAssets
   layers:
   - Default
   - TransparentFX

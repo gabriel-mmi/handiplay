@@ -14,6 +14,7 @@ public class MenuGameConfiguration : MenuSection
 
     private float startTime;
     private List<int> skinsId;
+    private Dictionary<KeyCode, float> doubleTapBuffer = new Dictionary<KeyCode, float>();
 
     void Start()
     {
@@ -27,50 +28,78 @@ public class MenuGameConfiguration : MenuSection
         {
             if (Input.GetKeyDown(kcode) && kcode != KeyCode.Tab)
             {
-                if (GameManager.instance.playerInRoom.Count < 4)
+                // Remove player on double tap key if he exist
+                if (doubleTapBuffer.ContainsKey(kcode))
                 {
-                    bool alreadyTaken = false;
-                    foreach (PlayerStats stat in GameManager.instance.playerInRoom)
+                    if ((Time.time - doubleTapBuffer[kcode]) < GameManager.instance.doubleTapTime)
                     {
-                        if (stat.input == kcode) alreadyTaken = true;
-                    }
+                        int index = -1;
+                        for (int i = 0; i < GameManager.instance.playerInRoom.Count; i++)
+                        {
+                            if (GameManager.instance.playerInRoom[i].input == kcode)
+                            {
+                                index = i;
+                                break;
+                            }
+                        }
 
-                    if (!alreadyTaken)
+                        if (index >= 0)
+                        {
+                            GameManager.instance.playerInRoom.RemoveAt(index);
+                            UpdateUI();
+                        }
+                    }else
                     {
-                        int id = UnityEngine.Random.Range(0, skinsId.Count - 1);
-                        GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, skinsId[id]));
-                        skinsId.RemoveAt(id);
-
-                        UpdateUI();
-                        MainMenu.instance.uiSource.Stop();
-                        MainMenu.instance.uiSource.PlayOneShot(playerJoined);
-
-                        if (GameManager.instance.playerInRoom.Count == 1)
-                        {
-                            VoiceOverManager.instance.Read(onePlayer);
-                        }
-                        else if (GameManager.instance.playerInRoom.Count == 2)
-                        {
-                            youCanStartTip.SetActive(true);
-                            youAreFullTip.SetActive(false);
-                            VoiceOverManager.instance.Read(twoPlayers);
-                        }
-                        else if (GameManager.instance.playerInRoom.Count == 3)
-                        {
-                            VoiceOverManager.instance.Read(threePlayers);
-                        }
-                        else if (GameManager.instance.playerInRoom.Count == 4)
-                        {
-                            youCanStartTip.SetActive(false);
-                            youAreFullTip.SetActive(true);
-                            VoiceOverManager.instance.Read(fourPlayers);
-                        }
+                        // Update last input
+                        doubleTapBuffer[kcode] = Time.time;
                     }
-                }else 
-                {
-                    MainMenu.instance.uiSource.PlayOneShot(fullSfx);
-                    VoiceOverManager.instance.Read(full); 
                 }
+                // Else add new player
+                else if (GameManager.instance.playerInRoom.Count < 4)
+                {
+                    doubleTapBuffer.Add(kcode, Time.time);
+
+                    // Add player to GameManager's room
+                    int id = UnityEngine.Random.Range(0, skinsId.Count);
+                    GameManager.instance.AddPlayerToRoom(new PlayerStats(kcode, skinsId[id]));
+                    skinsId.RemoveAt(id);
+
+                    // Update UI
+                    UpdateUI();
+
+                    // Play cool sound fx
+                    MainMenu.instance.uiSource.Stop();
+                    MainMenu.instance.uiSource.PlayOneShot(playerJoined);
+
+                    // Read voice over
+                    if (GameManager.instance.playerInRoom.Count == 1)
+                    {
+                        VoiceOverManager.instance.Read(onePlayer);
+                    }
+                    else if (GameManager.instance.playerInRoom.Count == 2)
+                    {
+                        youCanStartTip.SetActive(true);
+                        youAreFullTip.SetActive(false);
+                        VoiceOverManager.instance.Read(twoPlayers);
+                    }
+                    else if (GameManager.instance.playerInRoom.Count == 3)
+                    {
+                        VoiceOverManager.instance.Read(threePlayers);
+                    }
+                    else if (GameManager.instance.playerInRoom.Count == 4)
+                    {
+                        youCanStartTip.SetActive(false);
+                        youAreFullTip.SetActive(true);
+                        VoiceOverManager.instance.Read(fourPlayers);
+                    }
+                }
+                else
+                {
+                    // Full voice over
+                    MainMenu.instance.uiSource.PlayOneShot(fullSfx);
+                    VoiceOverManager.instance.Read(full);
+                }
+
             }
         }
 
@@ -111,6 +140,7 @@ public class MenuGameConfiguration : MenuSection
 
     public override void Exit()
     {
+        doubleTapBuffer.Clear();
         GameManager.instance.ClearRoom();
         UpdateUI();
     }
