@@ -158,7 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSpawn: 1
-  obstacle: {fileID: 1936668671810607370, guid: 3ddfa7fbfdbea414085eb6929b5e5241, type: 3}
+  standardObstacle: {fileID: 1936668671810607370, guid: 3ddfa7fbfdbea414085eb6929b5e5241, type: 3}
+  visualAssistObstacle: {fileID: 8809868393508861074, guid: 2994a3de3c4f90b41a215ae7360422be, type: 3}
   startDelay: 3
   rateDecreaseSpeed: 0.08
   startRate: 3
