@@ -127,7 +127,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.08
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -223,7 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c05830617463a42ab17e940c9e4e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
   animSpeed: 20
   emissionStrenght: 1000
   beepClip: {fileID: 8300000, guid: 8fa75b97daaba2149b22ad5b8e068e85, type: 3}

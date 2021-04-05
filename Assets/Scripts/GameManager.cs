@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> playerSkinsPrefabs = new List<GameObject>();
+    public List<Sprite> majorsAvatars = new List<Sprite>();
+    public string[] majorsNames = new string[6] { "Grayo", "Gradel", "Gronico", "Graëtan", "Granis", "Grabriel" };
+
     [Space]
     public KeyCode actionKey;
     public float holdTime, doubleTapTime;
@@ -165,28 +169,17 @@ public class GameManager : MonoBehaviour
     public void InitializeEndGameScene()
     {
         // Calculate score board
-        int first = -1;
-        int second = -1;
-        int third = -1;
+        List<KeyValuePair<int, float>> sortedScoreBoard = scoreBoard.ToList();
 
-        for (int i = 0; i < scoreBoard.Count; i++)
-        {
-            if (scoreBoard[i] > first)
+        sortedScoreBoard.Sort(
+            delegate(KeyValuePair<int, float> pair1,
+            KeyValuePair<int, float> pari2)
             {
-                third = second;
-                second = first;
-                first = i;
-            }else if (scoreBoard[i] > second)
-            {
-                third = second;
-                second = i;
-            }else if (scoreBoard[i] > third)
-            {
-                third = i;
-            }
-        }
+                return pair1.Value.CompareTo(pari2.Value);
+            }    
+        );
 
-        EndGameMenu.instance.UpdateUI(first, second, third);
+        EndGameMenu.instance.UpdateUI(sortedScoreBoard);
     }
 
     public float GetPlayerTime(int playerIndex)

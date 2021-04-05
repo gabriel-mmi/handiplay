@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -8,6 +8,7 @@ public class EndGameMenu : MonoBehaviour
 {
     public MenuButton button;
     public TMP_Text firstTime, secondTime, thirdTime;
+    public Image firstAvatar, secondAvatar, thirdAvatar;
     public List<AudioClip> customsEndVoicesOver = new List<AudioClip>();
     private float currentHoldTime, lastTapTime;
 
@@ -59,14 +60,39 @@ public class EndGameMenu : MonoBehaviour
         }
     }
 
-    public void UpdateUI(int firstPlayer, int secondPlayer, int thirdPlayer)
+    public void UpdateUI(List<KeyValuePair<int, float>> scoreBoard)
     {
-        firstTime.text = FromatTime(GameManager.instance.GetPlayerTime(firstPlayer));
-        secondTime.text = FromatTime(GameManager.instance.GetPlayerTime(secondPlayer));
-        if (thirdPlayer > 0) thirdTime.text = FromatTime(GameManager.instance.GetPlayerTime(thirdPlayer));
-        else thirdTime.text = "";
+        // First player
+        int firstPlayerIndex = scoreBoard[scoreBoard.Count - 1].Key;
+        float firstPlayerTime = scoreBoard[scoreBoard.Count - 1].Value;
+        firstTime.text = FromatTime(firstPlayerTime);
+        firstAvatar.sprite = GameManager.instance.majorsAvatars[firstPlayerIndex];
 
-        VoiceOverManager.instance.Read(customsEndVoicesOver[firstPlayer]);
+        // Second player
+        int secondPlayerIndex = scoreBoard[scoreBoard.Count - 2].Key;
+        float secondPlayerTime = scoreBoard[scoreBoard.Count - 2].Value;
+        firstTime.text = FromatTime(secondPlayerTime);
+        firstAvatar.sprite = GameManager.instance.majorsAvatars[secondPlayerIndex];
+
+        // Third player
+        if (scoreBoard.Count >= 3)
+        {
+            int thirdPlayerIndex = scoreBoard[scoreBoard.Count - 3].Key;
+            float thirdPlayerTime = scoreBoard[scoreBoard.Count - 3].Value;
+            firstTime.text = FromatTime(thirdPlayerTime);
+            firstAvatar.sprite = GameManager.instance.majorsAvatars[thirdPlayerIndex];
+
+            print("Player " + firstPlayerIndex + " : " + firstPlayerTime);
+            print("Player " + secondPlayerIndex + " : " + secondPlayerTime);
+            print("Player " + thirdPlayerIndex + " : " + thirdPlayerTime);
+        }
+        else
+        {
+            thirdTime.gameObject.SetActive(false);
+            thirdAvatar.gameObject.SetActive(false);
+        }
+
+        VoiceOverManager.instance.Read(customsEndVoicesOver[firstPlayerIndex]);
     }
 
     private string FromatTime(float time)
