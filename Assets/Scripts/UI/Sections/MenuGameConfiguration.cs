@@ -46,6 +46,7 @@ public class MenuGameConfiguration : MenuSection
                         if (index >= 0)
                         {
                             GameManager.instance.playerInRoom.RemoveAt(index);
+                            doubleTapBuffer.Remove(kcode);
                             UpdateUI();
                         }
                     }else
