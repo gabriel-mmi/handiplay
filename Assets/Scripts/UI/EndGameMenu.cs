@@ -63,28 +63,24 @@ public class EndGameMenu : MonoBehaviour
     public void UpdateUI(List<KeyValuePair<int, float>> scoreBoard)
     {
         // First player
-        int firstPlayerIndex = scoreBoard[scoreBoard.Count - 1].Key;
+        int firstPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 1].Key].skinId;
         float firstPlayerTime = scoreBoard[scoreBoard.Count - 1].Value;
         firstTime.text = FromatTime(firstPlayerTime);
         firstAvatar.sprite = GameManager.instance.majorsAvatars[firstPlayerIndex];
 
         // Second player
-        int secondPlayerIndex = scoreBoard[scoreBoard.Count - 2].Key;
+        int secondPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 2].Key].skinId;
         float secondPlayerTime = scoreBoard[scoreBoard.Count - 2].Value;
-        firstTime.text = FromatTime(secondPlayerTime);
-        firstAvatar.sprite = GameManager.instance.majorsAvatars[secondPlayerIndex];
+        secondTime.text = FromatTime(secondPlayerTime);
+        secondAvatar.sprite = GameManager.instance.majorsAvatars[secondPlayerIndex];
 
         // Third player
         if (scoreBoard.Count >= 3)
         {
-            int thirdPlayerIndex = scoreBoard[scoreBoard.Count - 3].Key;
+            int thirdPlayerIndex = GameManager.instance.playerInRoom[scoreBoard[scoreBoard.Count - 3].Key].skinId;
             float thirdPlayerTime = scoreBoard[scoreBoard.Count - 3].Value;
-            firstTime.text = FromatTime(thirdPlayerTime);
-            firstAvatar.sprite = GameManager.instance.majorsAvatars[thirdPlayerIndex];
-
-            print("Player " + firstPlayerIndex + " : " + firstPlayerTime);
-            print("Player " + secondPlayerIndex + " : " + secondPlayerTime);
-            print("Player " + thirdPlayerIndex + " : " + thirdPlayerTime);
+            thirdTime.text = FromatTime(thirdPlayerTime);
+            thirdAvatar.sprite = GameManager.instance.majorsAvatars[thirdPlayerIndex];
         }
         else
         {
