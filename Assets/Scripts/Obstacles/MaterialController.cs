@@ -24,29 +24,31 @@ public class MaterialController : MonoBehaviour
 
     void Update()
     {
-        float triggerDistance = Vector3.Distance(transform.position, Vector3.zero);
-        if (triggerDistance >= startDistance) GetComponentInParent<Obstacle>().Die();
-        else
+        if (GameManager.instance.isAGameStarted)
         {
-            float speed = (animSpeed / Mathf.Clamp(triggerDistance, 0.001f, 100000f));
-
-            float emissionValue = Mathf.Sin(Time.time * speed) * emissionStrenght;
-            mat.SetFloat("_emissionopa", Mathf.Clamp(emissionValue, 0, 100000f));
-
-            // Player beep sfx
-            if (GameManager.instance.settings.hearingHelp)
+            float triggerDistance = Vector3.Distance(transform.position, Vector3.zero);
+            if (triggerDistance >= startDistance) GetComponentInParent<Obstacle>().Die();
+            else
             {
-                if (emissionValue > 0 && !sfxPlayed)
+                float speed = (animSpeed / Mathf.Clamp(triggerDistance, 0.001f, 100000f));
+
+                float emissionValue = Mathf.Sin(Time.time * speed) * emissionStrenght;
+                mat.SetFloat("_emissionopa", Mathf.Clamp(emissionValue, 0, 100000f));
+
+                // Player beep sfx
+                if (GameManager.instance.settings.hearingHelp)
                 {
-                    sfxPlayed = true;
-                    source.PlayOneShot(beepClip);
-                }
-                else if (emissionValue < 0)
-                {
-                    sfxPlayed = false;
+                    if (emissionValue > 0 && !sfxPlayed)
+                    {
+                        sfxPlayed = true;
+                        source.PlayOneShot(beepClip);
+                    }
+                    else if (emissionValue < 0)
+                    {
+                        sfxPlayed = false;
+                    }
                 }
             }
         }
-
     }
 }

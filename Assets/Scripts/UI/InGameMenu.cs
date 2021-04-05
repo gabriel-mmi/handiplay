@@ -25,6 +25,8 @@ public class InGameMenu : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        GameManager.instance.isAGameStarted = true;
         StartCoroutine(StartCinematique());
     }
     private IEnumerator StartCinematique()
@@ -60,6 +62,13 @@ public class InGameMenu : MonoBehaviour
         startCounter.text = "";
         startCounter.transform.parent.gameObject.SetActive(false);
 
+        foreach(Player player in FindObjectsOfType<Player>())
+        {
+            player.OnGameStart();
+        }
+
+        FindObjectOfType<ObstaclesSpawner>().StartWave();
+
         musicSource.Play();
     }
 
@@ -69,6 +78,7 @@ public class InGameMenu : MonoBehaviour
     }
     private IEnumerator QuitSceneCoroutine()
     {
+        Cursor.visible = true;
         GetComponentInChildren<Animator>().SetTrigger("Hidden");
         yield return new WaitForSeconds(1f);
         mainSource.PlayOneShot(whistleClip);

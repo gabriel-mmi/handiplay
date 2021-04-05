@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private float startGameTime;
     private int deathCount;
     private Dictionary<int, float> scoreBoard = new Dictionary<int, float>();
+    [HideInInspector] public bool isAGameStarted = false;
 
     #region Singleton
     public static GameManager instance;
@@ -153,15 +154,18 @@ public class GameManager : MonoBehaviour
         startGameTime = Time.time;
     }
 
+    // On a player die...
     public void OnPlayerDie (Player player)
     {
         scoreBoard.Add(player.statsIndex, Time.time - startGameTime);
         player.OnPlayerDie -= OnPlayerDie;
         deathCount++;
         
+        // If all players are dead
         if(deathCount >= playerInRoom.Count)
         {
             deathCount = 0;
+            isAGameStarted = false;
             InGameMenu.instance.QuitScene();
         }
     }
