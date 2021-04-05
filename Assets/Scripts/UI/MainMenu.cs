@@ -69,6 +69,8 @@ public class MainMenu : MonoBehaviour
         // Release
         if (Input.GetKeyUp(GameManager.instance.actionKey))
         {
+            currentSection.Hold(0);
+
             if (!hadValidateAButton)
             {
                 if (currentSection.buttons.Count > 0)
@@ -77,8 +79,6 @@ public class MainMenu : MonoBehaviour
                     uiSource.Stop();
                     uiSource.PlayOneShot(landingClip);
                 }
-            }else {
-                currentSection.Hold(0);
             }
             hadValidateAButton = false;
             currentHoldTime = 0;

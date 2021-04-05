@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         if(deathCount >= playerInRoom.Count)
         {
             deathCount = 0;
-            SceneManager.LoadScene(2);
+            InGameMenu.instance.QuitScene();
         }
     }
 
