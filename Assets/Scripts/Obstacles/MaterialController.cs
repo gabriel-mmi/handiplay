@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class MaterialController : MonoBehaviour
 {
-    public GameObject trigger;
+    private float time = 0f;
+    private bool emit = false;
+    private Material mat;
     private float distance;
+    private float emissionRate;
+    
+    public GameObject trigger;
+    public float range;
+
     void Start()
     {
-        trigger = GameObject.FindGameObjectWithTag("ObstacleTrigger");
+        Renderer renderer = GetComponent<Renderer>();
+        mat = renderer.material;
     }
     void Update()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        Material mat = renderer.material;
-
         distance = Vector3.Distance(transform.position, trigger.transform.position);
+        float percent = Mathf.InverseLerp(range, 0, distance);
+        emissionRate = 25 * percent;
 
+        if (time > emissionRate)
+        {
+            emit = !emit;
+            if (emit)
+                mat.SetFloat("_emissionopa",50f);
+            else
+                mat.SetFloat("_emissionopa", 0f);
+            time = 0f;
+        }
 
-        Debug.Log(transform.parent.parent.GetComponent<Rigidbody>().velocity.magnitude);
-
-        mat.SetFloat("_emissionopa", Mathf.PingPong(Time.time * distance, 10f)) ;
-
+        time += Time.deltaTime;
     }
 }

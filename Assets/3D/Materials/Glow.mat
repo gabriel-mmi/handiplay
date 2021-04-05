@@ -23,7 +23,8 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Vector1_BBA74206: 2
-    - _emissionopa: 1
+    - _emissionopa: 50
     - _glow: 2
-    m_Colors: []
+    m_Colors:
+    - _color: {r: 1, g: 0.18930078, b: 0, a: 0}
   m_BuildTextureStacks: []

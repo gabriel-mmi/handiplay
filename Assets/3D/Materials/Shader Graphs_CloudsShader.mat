@@ -90,7 +90,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_5100B6B6: {r: 0.759434, g: 0.79640305, b: 1, a: 1}
+    - Color_5100B6B6: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
     - Color_9F979F9B: {r: 1, g: 1, b: 1, a: 0}
     - Vector4_4FE19BDB: {r: 1, g: 0, b: 0, a: 90}
     - Vector4_53C3CAF3: {r: -2.17, g: 0.96, b: -0.95, a: 1}
