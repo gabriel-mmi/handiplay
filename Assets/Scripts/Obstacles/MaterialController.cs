@@ -4,36 +4,49 @@ using UnityEngine;
 
 public class MaterialController : MonoBehaviour
 {
-    private float time = 0f;
-    private bool emit = false;
+    [Range(0, 100)]
+    public float animSpeed;
+    public float emissionStrenght;
+    [Space]
+    public AudioClip beepClip;
+
     private Material mat;
-    private float distance;
-    private float emissionRate;
-    
-    public GameObject trigger;
-    public float range;
+    private AudioSource source;
+    private float startDistance;
+    private bool sfxPlayed;
 
     void Start()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        mat = renderer.material;
+        mat = GetComponent<Renderer>().material;
+        source = GetComponent<AudioSource>();
+        startDistance = Vector3.Distance(transform.position, Vector3.zero);
     }
+
     void Update()
     {
-        distance = Vector3.Distance(transform.position, trigger.transform.position);
-        float percent = Mathf.InverseLerp(range, 0, distance);
-        emissionRate = 25 * percent;
-
-        if (time > emissionRate)
+        float triggerDistance = Vector3.Distance(transform.position, Vector3.zero);
+        if (triggerDistance >= startDistance) GetComponentInParent<Obstacle>().Die();
+        else
         {
-            emit = !emit;
-            if (emit)
-                mat.SetFloat("_emissionopa",50f);
-            else
-                mat.SetFloat("_emissionopa", 0f);
-            time = 0f;
+            float speed = (animSpeed / Mathf.Clamp(triggerDistance, 0.001f, 100000f));
+
+            float emissionValue = Mathf.Sin(Time.time * speed) * emissionStrenght;
+            mat.SetFloat("_emissionopa", Mathf.Clamp(emissionValue, 0, 100000f));
+
+            // Player beep sfx
+            if (GameManager.instance.settings.hearingHelp)
+            {
+                if (emissionValue > 0 && !sfxPlayed)
+                {
+                    sfxPlayed = true;
+                    source.PlayOneShot(beepClip);
+                }
+                else if (emissionValue < 0)
+                {
+                    sfxPlayed = false;
+                }
+            }
         }
 
-        time += Time.deltaTime;
     }
 }

@@ -5,7 +5,8 @@ public class ObstaclesSpawner : MonoBehaviour
 {
     public bool canSpawn = true;
     [Space]
-    public GameObject obstacle;
+    public GameObject standardObstacle;
+    public GameObject visualAssistObstacle;
     [Space]
     public float startDelay;
     public float rateDecreaseSpeed;
@@ -26,7 +27,14 @@ public class ObstaclesSpawner : MonoBehaviour
         while(canSpawn)
         {
             // Spawn obstacle
-            Instantiate(obstacle, transform.position, Quaternion.Euler(0, 180, 0));
+            if (GameManager.instance.settings.viewHelp || GameManager.instance.settings.hearingHelp)
+            {
+                Instantiate(visualAssistObstacle, transform.position, Quaternion.Euler(0, 180, 0));
+            }
+            else
+            {
+                Instantiate(standardObstacle, transform.position, Quaternion.Euler(0, 180, 0));
+            }
 
             // Then wait for the next spawn
             float x = Time.time - startWaveTime;
