@@ -16,7 +16,7 @@ public class Player : Entity
     public LayerMask groundMask;
     [Space]
     public Animator meshAnimator;
-    public GameObject deathEffect;
+    public GameObject deathEffect, jumpEffect;
     public AudioClip jumpClip, destroyClip;
     public List<AudioClip> deathClips = new List<AudioClip>();
 
@@ -59,6 +59,7 @@ public class Player : Entity
                     if (isGrounded)
                     {
                         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                        Instantiate(jumpEffect, feetPos.position, Quaternion.identity);
                         audioSource.PlayOneShot(jumpClip);
 
                         isJumping = true;
